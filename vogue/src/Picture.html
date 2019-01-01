@@ -1,0 +1,90 @@
+<img class="{currentIndex === index ? '' : 'hidden'}"
+	srcset="{prefix}320{posfix} 320w,
+             {prefix}450{posfix} 450w,
+             {prefix}600{posfix} 600w,
+             {prefix}640{posfix} 640w,
+             {prefix}760{posfix} 760w,
+             {prefix}900{posfix} 900w,
+             {prefix}1200{posfix} 1200w,
+             {prefix}1520{posfix} 1520w"
+	sizes="(max-width: 320px) 320px,
+            (max-width: 450px) 450px,
+            (max-width: 600px) 600px,
+            (max-width: 640px) 640px,
+            (max-width: 760px) 760px,
+            (max-width: 900px) 900px,
+            (max-width: 1200px) 1200px,
+            (max-width: 1520px) 1520px,
+            1520px"
+	src="{prefix}320{posfix}" alt=""
+	on:click="mouseClick(event)"
+	on:touchstart="touchstart(event)"
+	on:touchend="touchend(event)"
+	/>
+
+<script>
+	//import { fade, fly } from 'svelte-transitions';
+	//in:fly="{x: 50}"
+	//out:fade
+	let touchDevice = (navigator.maxTouchPoints || 'ontouchstart' in document.documentElement);
+
+	export default {
+		//transitions: { fade, fly },
+		data() {
+			return {
+				item: {},
+				count: 0,
+				currentIndex: 0,
+				layers: {},
+				//prefix: '//assets.vogue.com/photos/'
+			}
+		},
+		computed: {
+			prefix: ({ item }) => '//assets.vogue.com/photos/' + item.md + '/master/w_',
+			posfix: ({ item }) => ',c_limit/KIM_' + item.nm + '.jpg',
+			imgNum: ({ currentIndex }) => currentIndex + 1
+		},
+		methods: {
+			touchstart(ev) {
+				this._start = ev.touches[0].pageX;
+//console.log('touchstart', ev);
+			},
+			mouseClick(ev) {
+				if (touchDevice) { return; }
+				let {index, currentIndex, count} = this.get(),
+					ind = index + (ev.clientX < ev.target.parentNode.clientWidth / 2 ? -1 : 1);
+
+				//ind = ind >= count ? 0 : (ind < 0 ? count - 1 : ind);
+
+				this.set({currentIndex: ind >= count ? 0 : (ind < 0 ? count - 1 : ind) });
+console.log('mouseClick', ev);
+			},
+			touchend(ev) {
+				let {index, currentIndex, count} = this.get(),
+					touche = ev.changedTouches ? ev.changedTouches[0] : ev,
+					_start = this._start || 0,
+					delta = touche.pageX - _start,
+					ind = index + (delta > 0 ? -1 : (delta === 0 && touche.clientX < ev.target.parentNode.clientWidth / 2 ? -1 : 1));
+
+				//ind = ind >= count ? 0 : (ind < 0 ? count - 1 : ind);
+
+				this.set({currentIndex: ind >= count ? 0 : (ind < 0 ? count - 1 : ind) });
+console.log('touchend', ev);
+			}
+		},
+
+		onstate({ changed, current, previous }) {
+			//console.log('Picture', changed, current, previous);
+		}
+	}
+</script>
+
+
+<style>
+.hidden {
+	display: none;
+}
+img {
+	width: 100%;
+}
+</style>

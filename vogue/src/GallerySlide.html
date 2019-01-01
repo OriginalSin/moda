@@ -1,0 +1,53 @@
+
+<div data-index="20" class="slick-slide" tabindex="-1" style="outline: none; width: 360px;">
+<div class="gallery--end-slide">
+
+<header class="gallery--header--titles"><h1 itemprop="headline"><span class="gallery--header--subtitle"><a href="/fashion-shows/spring-2019-menswear">Spring 2019 Menswear</a></span><span class="gallery--header--title"><a href="https://www.vogue.com/fashion-shows/designer/alexander-mcqueen">Alexander McQueen</a></span></h1>
+</header>
+<div class="gallery--more-shows"><h2 class="gallery--more-shows--rule"><span class="gallery--more-shows--rule--title">More Shows</span></h2><div class="gallery--more-shows--show"><a href="https://www.vogue.com/fashion-shows/resort-2019/alexander-mcqueen/slideshow/collection">
+
+<img alt="" src="https://assets.vogue.com/photos/5bed7c167509832ced4425a7/2:3/w_400/00001-alexander-mcqueen-london-resort-2019.jpg"><h3 class="gallery--more-shows--subtitle">Resort 2019</h3><h2 class="gallery--more-shows--title">Alexander McQueen</h2></a></div><div class="gallery--more-shows--show"><a href="https://www.vogue.com/fashion-shows/spring-2019-ready-to-wear/alexander-mcqueen/slideshow/collection">
+
+<img alt="" src="https://assets.vogue.com/photos/5bb26e0548157121a828ed76/2:3/w_400/KIM_1698.jpg"><h3 class="gallery--more-shows--subtitle">Spring 2019 Ready-to-Wear</h3><h2 class="gallery--more-shows--title">Alexander McQueen</h2></a></div><div class="gallery--more-shows--show"><a href="https://www.vogue.com/fashion-shows/pre-fall-2018/alexander-mcqueen/slideshow/collection">
+
+<img alt="" src="https://assets.vogue.com/photos/5af2fa4bad7f7562f14e9eb9/2:3/w_400/00001-alexander-mcqueen-vogue-pre-fall-2018-pr.jpg"><h3 class="gallery--more-shows--subtitle">Pre-Fall 2018</h3><h2 class="gallery--more-shows--title">Alexander McQueen</h2></a></div>
+</div>
+
+<a href="/fashion-shows/spring-2019-menswear" class="gallery--view-all--anchor"><button class="gallery--view-all--button">View All Spring 2019 Menswear</button></a></div>
+
+<section class="gallery--meta">
+<div class="gallery--header--social">
+<Share />
+</div>
+</section>
+</div>
+
+
+<script>
+	const serverBase = window.serverBase || '//maps.kosmosnimki.ru/';
+	import Share from './Share.html';
+
+	export default {
+		data() {
+			return {
+				regl: null,
+				clasters: false,
+				layers: {},
+				filter: ''
+			}
+		},
+		methods: {
+			parseJSON(json) {
+				console.log('zoomstart', arguments);
+			}
+		},
+
+		components: {
+			Share
+		},
+
+		onstate({ changed, current, previous }) {
+			//console.log('map onstate', changed, current, previous);
+		}
+	}
+</script>

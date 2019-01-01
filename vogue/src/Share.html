@@ -1,0 +1,89 @@
+<span class="social-sharer social-sharer__runway-slideshow">
+<ul class="social-sharer--share-links">
+<li class="share-links--link facebook analytics--target__runwaySlideshow"><a class="link--anchor" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.vogue.com%2Ffashion-shows%2Fspring-2019-menswear%2Falexander-mcqueen%3Fmbid%3Dsocial_onsite_facebook"><span class="icon-facebook">Share on Facebook</span></a></li>
+<li class="share-links--link pinterest analytics--target__runwaySlideshow"><a class="link--anchor" href="https://www.pinterest.com/pin/create/button/?url=https%3A%2F%2Fwww.vogue.com%2Ffashion-shows%2Fspring-2019-menswear%2Falexander-mcqueen%3Fmbid%3Dsocial_onsite_pinterest&amp;media=https://assets.vogue.com/photos/5b2d26fe748d2059b8363ab6/master/pass/KIM_2206.jpg&amp;description=Alexander%20McQueen%20Spring%202019%20Menswear%20Paris%20Collection"><span class="icon-pinterest"></span></a></li>
+<li class="share-links--link twitter analytics--target__runwaySlideshow"><a class="link--anchor" href="https://twitter.com/intent/tweet?text=Alexander%20McQueen%20Spring%202019%20Menswear%20Fashion%20Show&amp;url=https%3A%2F%2Fwww.vogue.com%2Ffashion-shows%2Fspring-2019-menswear%2Falexander-mcqueen%3Fmbid%3Dsocial_onsite_twitter&amp;via=voguemagazine"><span class="icon-twitter"></span></a></li>
+</ul>
+</span>
+
+<script>
+	const serverBase = window.serverBase || '//maps.kosmosnimki.ru/';
+
+	export default {
+		data() {
+			return {
+				regl: null,
+				clasters: false,
+				layers: {},
+				filter: ''
+			}
+		},
+		methods: {
+			parseJSON(json) {
+				console.log('zoomstart', arguments);
+			}
+		},
+
+		components: {
+		},
+
+		onstate({ changed, current, previous }) {
+			//console.log('map onstate', changed, current, previous);
+		}
+	}
+</script>
+
+
+<style>
+ul {
+    list-style: none;
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+}
+li {
+    float: left;
+    margin-right: 4px;
+    width: 34px;
+    height: 34px;
+    line-height: 34px;
+}
+.icon-facebook:before {
+    content: "f";
+}
+.icon-pinterest:before {
+    content: "i";
+}
+.icon-twitter:before {
+    content: "t";
+}
+li span {
+    display: inline-block;
+    position: relative;
+    margin-top: 6px;
+	margin-left: 8px;
+    color: white;
+    background-image: none;
+    width: 1em;
+    height: 1.25em;
+    overflow: hidden;
+    white-space: nowrap;
+}
+li span:before {
+    width: 20px;
+    display: inline-block;
+    overflow: hidden;
+	cursor: pointer;
+    font: normal normal normal 1em/1.25 vogueicon;
+}
+li.pinterest {
+    background: #ca0034;
+}
+li.facebook {
+    background: #3b5998;
+}
+li.twitter {
+    background: #00aced;
+}
+
+</style>

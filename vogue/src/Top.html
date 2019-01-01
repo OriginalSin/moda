@@ -1,0 +1,109 @@
+<header class="gallery-header">
+	<span class="nav-item">
+		<span class="index">{index}</span>/<span class="total">{count}</span>
+	</span>
+	<span class="logo">vogue</span>
+	<!--img class="logo--image" src="/img/vogue-logo.svg" alt="" /-->
+
+	<span class="gallery-buttons">
+		
+		<span class="share"><Share /></span>
+		<span class="icon-y"></span>
+		<span class="icon-x"></span>
+	</span>
+
+</header>
+
+<script>
+	const serverBase = window.serverBase || '//maps.kosmosnimki.ru/';
+	import Share from './Share.html';
+	// import Picture from './Picture.html';
+
+	export default {
+		data() {
+			return {
+				filter: ''
+			}
+		},
+		computed: {
+			index: ({ currentIndex }) => currentIndex + 1,
+		},
+		methods: {
+			parseJSON(json) {
+				console.log('zoomstart', arguments);
+			}
+		},
+
+		components: {
+			Share,
+			// GallerySlide,
+			// Picture
+		},
+
+		onstate({ changed, current, previous }) {
+			//console.log('map onstate', changed, current, previous);
+		}
+	}
+</script>
+
+
+<style>
+.gallery-header {
+	color: #8e8e8e;
+	padding: 10px;
+    padding-top: 18px;
+    padding-bottom: 18px;
+}
+.gallery-header .index {
+	color: white;
+}
+
+span.logo {
+    text-transform: uppercase;
+    position: absolute;
+    left: calc(50% - 45px);
+    top: 14px;
+    color: #ccc;
+    font-family: Savoy,Georgia,serif;
+    font-weight: bold;
+    font-size: x-large;
+}
+.nav-item {
+	font-family: Savoy,Georgia,serif;
+	font-size: 18px;
+}
+
+span.gallery-buttons {
+    right: 10px;
+    top: 6px;
+    color: white;
+    position: absolute;
+}
+.gallery-buttons .share{
+    top: 4px;
+    margin-right: 30px;
+    position: relative;
+}
+
+.icon-y:before {
+    content: "y";
+}
+.icon-x:before {
+    content: "x";
+}
+.icon-x:before, .icon-y:before {
+    width: 20px;
+    display: inline-block;
+    overflow: hidden;
+	cursor: pointer;
+    font: normal normal normal 1em/1.25 vogueicon;
+}
+@media (max-width: 959px) {
+	.share {
+		display: none;
+	}
+	span.gallery-buttons {
+		top: unset;
+	}
+}
+</style>
