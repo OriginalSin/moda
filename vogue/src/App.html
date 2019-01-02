@@ -1,14 +1,14 @@
 <div class="gallery-meyer">
-	<Top currentIndex={currentIndex} count={count} />
+	<Top currentIndex={currentIndex} count={count} bind:gridopen />
 
 	<div class="slick-cont">
-		<div class="slick-list" ref:imgList
+		<div class="slick-list {gridopen ? 'gridopen' : ''}" ref:imgList
 			on:touchstart="touchstart(event)"
 			on:touchend="touchend(event)"
 			on:click="mouseClick(event)"
 		>
 		{#each pictureItems as it, i}
-			<Picture item={it} index={i} bind:width bind:currentIndex count={count} />
+			<Picture item={it} bind:width bind:currentIndex bind:gridopen index={i} />
 		{/each}
 		</div>
 	</div>
@@ -22,6 +22,7 @@
 	export default {
 		data() {
 			return {
+				gridopen: false,
 				pictureItems: [],
 				currentIndex: 0,
 				width: visualViewport.width
@@ -43,33 +44,46 @@
 				this.chkCurrent(currentIndex + (delta > 0 ? -1 : (delta === 0 && x < w / 2 ? -1 : 1)));
 			},
 			mouseClick(ev) {
-				if (navigator.maxTouchPoints || 'ontouchstart' in document.documentElement) { return; }
-				let {width, currentIndex} = this.get();
-				this.chkCurrent(currentIndex + (ev.clientX < width / 2 ? -1 : 1));
+				if (navigator.maxTouchPoints ||
+					'ontouchstart' in document.documentElement ||
+					ev.target.classList.contains('number-container')
+				) {
+					return;
+				}
+				let {width, currentIndex} = this.get(),
+					w = visualViewport.width;
+				this.chkCurrent(currentIndex + (ev.clientX < w / 2 ? -1 : 1));
 			},
 			chkCurrent(ind) {
-				let {count} = this.get(),
+				let {count, gridopen} = this.get(),
 					node = this.refs.imgList,
 					w = visualViewport.width;
+// console.log('chkCurrent', ind, count, gridopen, node.style.transform);
 				ind = ind >= count ? 0 : (ind < 0 ? count - 1 : ind);
-				node.style.transform = 'translate3d(-' + ind * w + 'px, 0, 0)';
-				this.set({currentIndex: ind, width: w });
+				if (!gridopen) {
+					node.style.transform = 'translate3d(-' + ind * w + 'px, 0, 0)';
+					this.set({currentIndex: ind, width: w });
+				}
 			},
 			onresize() {
-				let {currentIndex, count} = this.get(),
+				let {currentIndex, count, gridopen} = this.get(),
 					w = visualViewport.width,
 					node = this.refs.imgList;
 					
-// console.log('onresize', w, count, node.children[0].clientWidth);
-				node.style.width = w * count + 'px';
-				node.style.transform = 'translate3d(-' + currentIndex * w + 'px, 0, 0)';
-				this.set({width: w});
+// console.log('onresize', w, gridopen, node.children[0].clientWidth);
+				if (!gridopen) {
+					node.style.width = w * count + 'px';
+					node.style.transform = 'translate3d(-' + currentIndex * w + 'px, 0, 0)';
+					this.set({width: w});
+				} else {
+					node.style.width = '';
+					node.style.transform = '';
+				}
 			}
 		},
 
 		components: {
 			Top,
-			//Share,
 			Bottom: './Bottom.html',
 			Picture: './Picture.html'
 		},
@@ -77,13 +91,10 @@
 			window.visualViewport.onresize = this.onresize.bind(this);
 		},
 		onupdate({ changed, current, previous }) {
-			if (changed.pictureItems) {
+			if (changed.pictureItems || changed.gridopen) {
 				this.onresize();
- // console.log('onupdate', visualViewport.width, current.pictureItems.length);
+				// console.log('onupdate', visualViewport.width, current.pictureItems.length);
 			}
-		},
-		onstate({ changed, current, previous }) {
-			// console.log('onstate', changed, current, previous);
 		}
 	}
 </script>
@@ -101,9 +112,17 @@
 .slick-list {
     transform: translate3d(0, 0, 0);
 	transition: transform 1s;
+	text-align: center;
 }
 
-.slick-list img {
-	/* width: 100%; */
+.gridopen :global(img) {
+    padding: 6px;
+    width: 22%;
 }
+@media (max-width: 450px) {
+	.gridopen :global(img) {
+		width: 44%;
+	}
+}
+
 </style>

@@ -1,5 +1,6 @@
 import App from './App.html';
 
+let currentIndex = Number(location.hash.substr(1)) || 1;
 const app = new App({
 	target: document.body,
 	data: {
@@ -25,7 +26,7 @@ const app = new App({
 			{md: '5b2d28fddfb55f5d708a2ceb', nm: 2532}, 
 			{md: '5b2d26fe748d2059b8363ab6', nm: 2206}
 		],
-		currentIndex: Number(location.hash.substr(1)) - 1,
+		currentIndex: currentIndex - 1,
 		name: 'world'
 	}
 });

@@ -1,7 +1,7 @@
 <div class="bottom-cont">
 	<div class="subtitle-cont">
 		<a class="subtitle" href="/fashion-shows/spring-2019-menswear">Spring 2019 Menswear</a>
-		<span class="right">
+		<span class="right" ref:share>
 			<Share />
 		</span>
 	</div>
@@ -15,33 +15,17 @@
 </div>
 
 <script>
-	const serverBase = window.serverBase || '//maps.kosmosnimki.ru/';
-	import Share from './Share.html';
-	// import Picture from './Picture.html';
-
 	export default {
 		data() {
 			return {
-				filter: ''
 			}
 		},
-		computed: {
-			//index: ({ currentIndex }) => currentIndex + 1,
+		onupdate({ changed, current, previous }) {
+			let share = this.refs.share;
+			setTimeout(()=> { share.style.opacity = 1; }, 1000);
 		},
-		methods: {
-			parseJSON(json) {
-				console.log('zoomstart', arguments);
-			}
-		},
-
 		components: {
-			Share,
-			// GallerySlide,
-			// Picture
-		},
-
-		onstate({ changed, current, previous }) {
-			//console.log('map onstate', changed, current, previous);
+			Share: './Share.html'
 		}
 	}
 </script>
@@ -58,23 +42,19 @@
     font-size: 13px;
     font-weight: 400;
 }
-.subtitle-cont {
-    /*padding: 4px;*/
-}
-.bottom-cont {/*
-    position: absolute;
-    bottom: -112px;
-    background: #1a1a1a;
-    width: 100%;
-	*/
-}
+
 .right {
     position: absolute;
 	right: 0;
+	opacity: 0.1;
+	transition: opacity 1s;
 }
 .collection {
 	border-bottom: 1px solid #8e8e8e;
 	padding-bottom: 10px;
+}
+.bottom-cont {
+    padding: 6px;
 }
 .bottom {
 	text-align: center;
@@ -82,7 +62,7 @@
 }
 .headline a {
 	text-decoration: none;
-	    width: 200px;
+	width: 200px;
     display: block;
     margin: 2px 0 0;
     overflow: hidden;
@@ -94,39 +74,4 @@
 .headline {
     margin-top: 12px;
 }
-/*
-.gallery--header--subtitle, .gallery--header--subtitle a {
-    display: block;
-    text-transform: uppercase;
-    letter-spacing: .05em;
-    color: #8e8e8e;
-    font-family: FranklinGothic,Helvetica,sans-serif;
-    font-size: 13px;
-    font-weight: 400;
-}
-.gallery--bottom-info--collection-label {
-    display: block;
-    margin-top: 10px;
-    border-bottom: 1px solid #8e8e8e;
-    padding-bottom: 25px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: #8e8e8e;
-    font-family: FranklinGothic,Helvetica,sans-serif;
-    font-size: 13px;
-    font-weight: 400;
-}
-.gallery-photo-credits {
-    position: absolute;
-    bottom: 20px;
-    color: #8e8e8e;
-    font-family: FranklinGothic,Helvetica,sans-serif;
-    font-size: 11px;
-}
-@media (max-width: 959px) {
-	.share {
-		display: none;
-	}
-}
-*/
 </style>

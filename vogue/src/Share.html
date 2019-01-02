@@ -1,23 +1,32 @@
 <span class="social-sharer social-sharer__runway-slideshow">
 <ul class="social-sharer--share-links">
-<li class="share-links--link facebook analytics--target__runwaySlideshow"><a class="link--anchor" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.vogue.com%2Ffashion-shows%2Fspring-2019-menswear%2Falexander-mcqueen%3Fmbid%3Dsocial_onsite_facebook"><span class="icon-facebook">Share on Facebook</span></a></li>
-<li class="share-links--link pinterest analytics--target__runwaySlideshow"><a class="link--anchor" href="https://www.pinterest.com/pin/create/button/?url=https%3A%2F%2Fwww.vogue.com%2Ffashion-shows%2Fspring-2019-menswear%2Falexander-mcqueen%3Fmbid%3Dsocial_onsite_pinterest&amp;media=https://assets.vogue.com/photos/5b2d26fe748d2059b8363ab6/master/pass/KIM_2206.jpg&amp;description=Alexander%20McQueen%20Spring%202019%20Menswear%20Paris%20Collection"><span class="icon-pinterest"></span></a></li>
-<li class="share-links--link twitter analytics--target__runwaySlideshow"><a class="link--anchor" href="https://twitter.com/intent/tweet?text=Alexander%20McQueen%20Spring%202019%20Menswear%20Fashion%20Show&amp;url=https%3A%2F%2Fwww.vogue.com%2Ffashion-shows%2Fspring-2019-menswear%2Falexander-mcqueen%3Fmbid%3Dsocial_onsite_twitter&amp;via=voguemagazine"><span class="icon-twitter"></span></a></li>
+<li class="share-links--link facebook analytics--target__runwaySlideshow">
+	<a class="link--anchor" href="https://www.facebook.com/sharer/sharer.php?u={link}%3Fmbid%3Dsocial_onsite_facebook"><span class="icon-facebook">Share on Facebook</span></a>
+</li>
+<li class="share-links--link pinterest analytics--target__runwaySlideshow">
+	<a class="link--anchor" href="https://www.pinterest.com/pin/create/button/?url={link}%3Fmbid%3Dsocial_onsite_pinterest&amp;media=https://assets.vogue.com/photos/5b2d26fe748d2059b8363ab6/master/pass/KIM_2206.jpg&amp;description={text}"><span class="icon-pinterest"></span></a>
+</li>
+<li class="share-links--link twitter analytics--target__runwaySlideshow">
+	<a class="link--anchor" href="https://twitter.com/intent/tweet?text={text}&amp;url={link}%3Fmbid%3Dsocial_onsite_twitter&amp;via=voguemagazine"><span class="icon-twitter"></span></a>
+</li>
 </ul>
 </span>
 
 <script>
-	const serverBase = window.serverBase || '//maps.kosmosnimki.ru/';
+	const link = encodeURI(location.href);
 
 	export default {
 		data() {
 			return {
 				regl: null,
 				clasters: false,
-				layers: {},
-				filter: ''
+				link: link,
+				text: 'Alexander%20McQueen%20Spring%202019%20Menswear%20Fashion%20Show'
 			}
 		},
+		// computed: {
+			// link: () => encodeURI(location.href)
+		// },
 		methods: {
 			parseJSON(json) {
 				console.log('zoomstart', arguments);
@@ -42,6 +51,7 @@ ul {
     margin: 0;
 }
 li {
+	cursor: pointer;
     float: left;
     margin-right: 4px;
     width: 34px;

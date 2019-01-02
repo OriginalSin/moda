@@ -1,3 +1,4 @@
+<span class="image-cont {gridopen ? 'gridopen' : ''}">
 <img class="image"
 	srcset="{prefix}320{posfix} 320w,
              {prefix}450{posfix} 450w,
@@ -19,15 +20,19 @@
 	src="{prefix}320{posfix}"
 	width="{width}"
 	alt=""
-	/>
+/>
+{#if gridopen}
+	<span class="number-container"on:click="set({gridopen: false, currentIndex: index})">{index + 1}</span>
+{/if}
+</span>
 
 <script>
 	export default {
 		data() {
 			return {
 				item: {},
-				count: 0,
-				currentIndex: 0,
+				// count: 0,
+				// currentIndex: 0,
 				//prefix: '//assets.vogue.com/photos/'
 			}
 		},
@@ -37,3 +42,27 @@
 		}
 	}
 </script>
+
+<style>
+.image-cont {
+    position: relative;
+    display: block;
+    float: left;
+}
+.image-cont.gridopen {
+    display: unset;
+    float: unset;
+}
+.number-container {
+	position: absolute;
+    bottom: 27px;
+    left: 20px;
+    background: rgba(0,0,0,.7);
+    width: 16px;
+    cursor: pointer;
+    text-decoration: none;
+    padding: 9px;
+    color: #fff;
+}
+
+</style>
