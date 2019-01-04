@@ -50,6 +50,7 @@
 				if (gridopen) {
 					ev.stopPropagation(ev);
 					//ev.preventDefault(ev);
+					window.scroll(0, 0);
 					this.set({gridopen: false, currentIndex: index});
 				}
 			},
