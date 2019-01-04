@@ -44,7 +44,9 @@
 				this.chkCurrent(currentIndex + (delta > 0 ? -1 : (delta === 0 && x < w / 2 ? -1 : 1)));
 			},
 			mouseClick(ev) {
-				if (navigator.maxTouchPoints ||
+				let {gridopen} = this.get();
+				if (gridopen ||
+					navigator.maxTouchPoints ||
 					'ontouchstart' in document.documentElement ||
 					ev.target.classList.contains('number-container')
 				) {

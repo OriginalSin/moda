@@ -1,13 +1,14 @@
-<span class="image-cont {gridopen ? 'gridopen' : ''}">
+<span class="image-cont {gridopen ? 'gridopen' : ''}" on:click="clickOnImage(event)">
 <img class="image"
-	srcset="{prefix}320{posfix} 320w,
-             {prefix}450{posfix} 450w,
-             {prefix}600{posfix} 600w,
-             {prefix}640{posfix} 640w,
-             {prefix}760{posfix} 760w,
-             {prefix}900{posfix} 900w,
-             {prefix}1200{posfix} 1200w,
-             {prefix}1520{posfix} 1520w"
+	srcset="{prefix}w_320,c_limit{posfix} 320w,
+             {prefix}w_450,c_limit{posfix} 450w,
+             {prefix}w_600,c_limit{posfix} 600w,
+             {prefix}w_640,c_limit{posfix} 640w,
+             {prefix}w_760,c_limit{posfix} 760w,
+             {prefix}w_900,c_limit{posfix} 900w,
+             {prefix}w_1200,c_limit{posfix} 1200w,
+             {prefix}w_1520,c_limit{posfix} 1520w,
+             {prefix}pass{posfix} 2000w"
 	sizes="(max-width: 320px) 320px,
             (max-width: 450px) 450px,
             (max-width: 600px) 600px,
@@ -16,13 +17,16 @@
             (max-width: 900px) 900px,
             (max-width: 1200px) 1200px,
             (max-width: 1520px) 1520px,
+            (max-width: 2000px) 2000px,
             320px"
 	src="{prefix}320{posfix}"
 	width="{width}"
 	alt=""
 />
 {#if gridopen}
-	<span class="number-container"on:click="set({gridopen: false, currentIndex: index})">{index + 1}</span>
+	<span class="container number">{index + 1}</span>
+{:else}
+	<span class="container zoom"></span>
 {/if}
 </span>
 
@@ -37,8 +41,18 @@
 			}
 		},
 		computed: {
-			prefix: ({ item }) => '//assets.vogue.com/photos/' + item.md + '/master/w_',
-			posfix: ({ item }) => ',c_limit/KIM_' + item.nm + '.jpg',
+			prefix: ({ item }) => '//assets.vogue.com/photos/' + item.md + '/master/',
+			posfix: ({ item }) => '/KIM_' + item.nm + '.jpg',
+		},
+		methods: {
+			clickOnImage(ev) {
+				let {gridopen, index} = this.get();
+				if (gridopen) {
+					ev.stopPropagation(ev);
+					//ev.preventDefault(ev);
+					this.set({gridopen: false, currentIndex: index});
+				}
+			},
 		}
 	}
 </script>
@@ -47,22 +61,42 @@
 .image-cont {
     position: relative;
     display: block;
+    cursor: pointer;
     float: left;
 }
 .image-cont.gridopen {
     display: unset;
     float: unset;
 }
-.number-container {
+.container {
 	position: absolute;
-    bottom: 27px;
-    left: 20px;
-    background: rgba(0,0,0,.7);
     width: 16px;
-    cursor: pointer;
     text-decoration: none;
     padding: 9px;
-    color: #fff;
 }
-
+.number {
+    bottom: 27px;
+    left: 20px;
+    color: #fff;
+    background: rgba(0,0,0,.7);
+}
+.image-cont:hover .zoom {
+/*	display: block;*/
+}
+.zoom {
+    top: 27px;
+    right: 20px;
+    width: 19px;
+    height: 19px;
+    font-size: 19px;
+    text-align: center;
+    color: #fff;
+    background: #a60505;
+	display: none;
+}
+.zoom:before {
+	font: normal normal normal 1em/1.25 vogueicon;
+	content: "k";
+	padding-left: 1px;
+}
 </style>

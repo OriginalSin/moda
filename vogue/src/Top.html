@@ -1,4 +1,9 @@
 <header class="gallery-header">
+	<span class="title">
+			<a class="subtitle" href="//www.vogue.com/fashion-shows/spring-2019-menswear">Spring 2019 Menswear</a>
+		<br>
+			<a href="//www.vogue.com/fashion-shows/designer/alexander-mcqueen">Alexander McQueen</a>
+	</span>
 	<span class="nav-item">
 {#if !gridopen}
 		<span class="index">{index}</span>/<span class="total">{count}</span>
@@ -48,7 +53,7 @@
 span.logo {
     text-transform: uppercase;
     position: absolute;
-    left: calc(50% - 45px);
+		left: 50%;
     top: 15px;
     color: #ccc;
     font-family: Savoy,Georgia,serif;
@@ -57,6 +62,8 @@ span.logo {
 .nav-item {
 	font-family: Savoy,Georgia,serif;
 	font-size: 18px;
+	left: 254px;
+	position: absolute;
 }
 
 span.gallery-buttons {
@@ -97,12 +104,44 @@ span.gallery-buttons span {
 	cursor: pointer;
     font: normal normal normal 1em/1.25 vogueicon;
 }
-@media (max-width: 959px) {
+.title {
+	display: inline-block;
+	top: 3px;
+	position: absolute;
+	padding-right: 8px;
+	border-right: 1px solid #666;
+}
+.title a {
+	color: #fff;
+	text-decoration: none;
+	vertical-align: sub;
+	letter-spacing: .05em;
+	font-family: FranklinGothic,Helvetica,sans-serif;
+	font-size: 24px;
+	font-weight: 400;
+}
+.title a.subtitle {
+	font-size: 13px;
+	text-transform: uppercase;
+	color: #8e8e8e;
+}
+
+@media (max-width: 640px) {
 	.share {
 		display: none;
 	}
 	span.gallery-buttons {
 		top: unset;
+	}
+	span.logo {
+		left: calc(50% - 45px);
+	}
+
+	.nav-item {
+		position: unset;
+	}
+	.title {
+		display: none;
 	}
 }
 </style>
